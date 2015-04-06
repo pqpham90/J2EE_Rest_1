@@ -6,19 +6,19 @@
 
 	  <context-param>
             <param-name>javax.ws.rs.Application</param-name>
-            <param-value>assign.resources.UTCoursesApplication</param-value>
+            <param-value>assign.resources.EavesdropApplication</param-value>
       </context-param>
-      
+
       <servlet>
         <servlet-name>Resteasy</servlet-name>
         <servlet-class>
             org.jboss.resteasy.plugins.server.servlet.HttpServletDispatcher
         </servlet-class>
       </servlet>
- 
+
     <servlet-mapping>
         <servlet-name>Resteasy</servlet-name>
         <url-pattern>/assignment4</url-pattern>
     </servlet-mapping>
-      
+
 </web-app>
