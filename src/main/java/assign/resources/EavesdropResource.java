@@ -42,10 +42,11 @@ public class EavesdropResource {
 	@Produces("application/xml")
 	public StreamingOutput getProject(@PathParam("project") String projectName) throws Exception {
 		final Project project = new Project();
-		project.setName("%23heat");
+
+		project.setName(projectName);
 		project.setLink(new ArrayList<String>());
-		project.getLink().add("l1");
-		project.getLink().add("l2");
+
+		eavesdropService.getProject(project, projectName);
 
 		return new StreamingOutput() {
 			public void write(OutputStream outputStream) throws IOException, WebApplicationException {
