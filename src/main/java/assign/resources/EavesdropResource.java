@@ -11,6 +11,7 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.net.HttpURLConnection;
 import java.util.ArrayList;
 
 @Path("/myeavesdrop/projects")
@@ -42,11 +43,12 @@ public class EavesdropResource {
 	@Produces("application/xml")
 	public StreamingOutput getProject(@PathParam("project") String projectName) throws Exception {
 		final Project project = new Project();
-
 		project.setName(projectName);
 		project.setLink(new ArrayList<String>());
 
-		eavesdropService.getProject(project, projectName);
+		if(eavesdropService.getProject(project, projectName) == 404) {
+			throw new WebApplicationException(HttpURLConnection.HTTP_NOT_FOUND);
+		}
 
 		return new StreamingOutput() {
 			public void write(OutputStream outputStream) throws IOException, WebApplicationException {

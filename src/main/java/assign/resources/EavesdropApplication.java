@@ -24,6 +24,4 @@ public class EavesdropApplication extends Application {
 	public Set<Object> getSingletons() {
 		return singletons;
 	}
-
-
 }

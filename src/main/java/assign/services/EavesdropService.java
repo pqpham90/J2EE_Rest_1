@@ -2,6 +2,7 @@ package assign.services;
 
 import assign.domain.Project;
 import assign.domain.Projects;
+import org.jsoup.HttpStatusException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -40,7 +41,7 @@ public class EavesdropService {
 		}
 	}
 
-	public void getProject(Project project, String projectName) throws Exception {
+	public int getProject(Project project, String projectName) throws Exception {
 		String URL = "http://eavesdrop.openstack.org/irclogs/" + projectName.replace("#", "%23");
 
 		try {
@@ -57,8 +58,14 @@ public class EavesdropService {
 
 			}
 		}
+		catch (HttpStatusException e) {
+			return e.getStatusCode();
+		}
 		catch (Exception e) {
 			e.printStackTrace();
+			return  -1;
 		}
+
+		return 0;
 	}
 }
