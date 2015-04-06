@@ -25,6 +25,7 @@
           <element id="library" level="project" name="Maven: javax.xml.bind:jaxb-api:2.2.9" />
           <element id="library" level="project" name="Maven: com.sun.istack:istack-commons-runtime:2.16" />
           <element id="library" level="project" name="Maven: com.sun.xml.bind:jaxb-impl:2.2-promoted-b65" />
+          <element id="library" level="project" name="Maven: org.jsoup:jsoup:1.8.1" />
         </element>
       </element>
       <element id="directory" name="META-INF">

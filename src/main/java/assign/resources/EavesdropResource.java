@@ -5,6 +5,10 @@ import assign.domain.Courses;
 import assign.domain.Project;
 import assign.domain.Projects;
 import assign.services.EavesdropService;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -17,6 +21,7 @@ import javax.xml.bind.Marshaller;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.ListIterator;
 
 @Path("/myeavesdrop")
 public class EavesdropResource {
@@ -69,13 +74,51 @@ public class EavesdropResource {
 	@Path("/projects")
 	@Produces("application/xml")
 	public StreamingOutput getAllProjects() throws Exception {
-		Project heat = new Project();
-		heat.setName("%23heat");
+		String baseURL = "http://eavesdrop.openstack.org/";
+		String irclogs = "irclogs/";
+		String meetings = "meetings/";
 
 		final Projects projects = new Projects();
 		projects.setProjects(new ArrayList<String>());
-		projects.getProjects().add("%23heat");
-		projects.getProjects().add("%23dox");
+
+		try {
+			Document doc = Jsoup.connect(baseURL + irclogs).get();
+			Elements links = doc.select("body a");
+
+			ListIterator<Element> iter = links.listIterator();
+			while(iter.hasNext()) {
+				Element e = iter.next();
+				String s = e.html();
+				if (s.endsWith("/")) {
+					s = s.replace("/", "");
+					projects.getProjects().add(s);
+				}
+			}
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		try {
+			Document doc = Jsoup.connect(baseURL + meetings).get();
+			Elements links = doc.select("body a");
+
+			ListIterator<Element> iter = links.listIterator();
+			while(iter.hasNext()) {
+				Element e = iter.next();
+				String s = e.html();
+				if (s.endsWith("/")) {
+					s = s.replace("/", "");
+					projects.getProjects().add(s);
+				}
+			}
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+
+//		Project heat = new Project();
+//		heat.setName("%23heat");
 
 		return new StreamingOutput() {
 			public void write(OutputStream outputStream) throws IOException, WebApplicationException {
