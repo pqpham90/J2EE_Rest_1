@@ -1,4 +1,5 @@
-import assign.resources.EavesdropResource;
+package assign.resources;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.parser.Parser;
@@ -74,7 +75,7 @@ public class TestEavesdropResource {
 	public void testGetProject () throws Exception {
 		Client client = ClientBuilder.newClient();
 		try {
-			System.out.println("*** Getting All Projects ***");
+			System.out.println("*** Getting Single Project ***");
 
 			Response response = client.target("http://localhost:8080/assignment4/myeavesdrop/projects/%23openstack-api/irclogs")
 					.request().get();
@@ -114,7 +115,7 @@ public class TestEavesdropResource {
 	public void testGetProjectNonExistent () throws Exception {
 		Client client = ClientBuilder.newClient();
 		try {
-			System.out.println("*** Getting All Projects ***");
+			System.out.println("*** Getting Non-Existent Project ***");
 
 			Response response = client.target("http://localhost:8080/assignment4/myeavesdrop/projects/non-existent-project/irclogs")
 					.request().get();
