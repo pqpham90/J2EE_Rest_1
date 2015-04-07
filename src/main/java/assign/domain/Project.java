@@ -24,8 +24,4 @@ public class Project {
     public void setLink(List<String> link) {
         this.link = link;
     }
-
-	public String getName () {
-		return this.name;
-	}
 }

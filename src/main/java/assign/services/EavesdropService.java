@@ -12,6 +12,7 @@ import java.util.ListIterator;
 
 public class EavesdropService {
 
+	// grabs all the projects in meetings and irclogs
 	public void getAllProjects(Projects projects) throws Exception {
 		String baseURL = "http://eavesdrop.openstack.org/";
 		String meetings = "meetings/";
@@ -21,6 +22,7 @@ public class EavesdropService {
 		getAllProjects(projects, baseURL + irclogs);
 	}
 
+	// grabs all the projects in the URL
 	public void getAllProjects(Projects projects, String URL) throws Exception {
 		try {
 			Document doc = Jsoup.connect(URL).get();
@@ -41,6 +43,7 @@ public class EavesdropService {
 		}
 	}
 
+	// get the logs in the project
 	public int getProject(Project project, String projectName) throws Exception {
 		String URL = "http://eavesdrop.openstack.org/irclogs/" + projectName.replace("#", "%23");
 

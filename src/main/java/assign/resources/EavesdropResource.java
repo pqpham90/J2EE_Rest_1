@@ -22,6 +22,7 @@ public class EavesdropResource {
 		this.eavesdropService = new EavesdropService();
 	}
 
+	// get the union of meetings and irclogs
 	@GET
 	@Path("/")
 	@Produces("application/xml")
@@ -38,6 +39,7 @@ public class EavesdropResource {
 		};
 	}
 
+	// grabs all the logs for projects
 	@GET
 	@Path("{project}/irclogs")
 	@Produces("application/xml")
@@ -46,6 +48,7 @@ public class EavesdropResource {
 		project.setName(projectName);
 		project.setLink(new ArrayList<String>());
 
+		// wasn't found return 404 error
 		if(eavesdropService.getProject(project, projectName) == 404) {
 			throw new WebApplicationException(HttpURLConnection.HTTP_NOT_FOUND);
 		}
@@ -58,6 +61,7 @@ public class EavesdropResource {
 	}
 
 
+	// output all the meeting and irclogs projects
 	protected void outputProjects(OutputStream os, Projects projects) throws IOException {
 		try {
 			JAXBContext jaxbContext = JAXBContext.newInstance(Projects.class);
@@ -71,6 +75,7 @@ public class EavesdropResource {
 		}
 	}
 
+	// output the logs of the project
 	protected void outputProject(OutputStream os, Project project) throws IOException {
 		try {
 			JAXBContext jaxbContext = JAXBContext.newInstance(Project.class);
