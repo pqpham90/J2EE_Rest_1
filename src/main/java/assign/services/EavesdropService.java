@@ -51,7 +51,6 @@ public class EavesdropService {
 			Document doc = Jsoup.connect(URL).get();
 			Elements links = doc.select("body a");
 
-
 			ListIterator<Element> iter = links.listIterator();
 			while(iter.hasNext()) {
 				Element e = iter.next();
